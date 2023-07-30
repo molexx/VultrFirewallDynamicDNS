@@ -117,7 +117,7 @@ while loop_again:
                 try:
                     external_ip = requests.get("https://api.ipify.org/").text
                 except Exception as e:
-                    logger.error("Could not lookup external IP address", e)
+                    logger.exception("Could not lookup external IP address")
                     external_ip = None
                     continue
                     # try again next time!
@@ -127,7 +127,7 @@ while loop_again:
                     continue
 
                 # 1.3.5.7 123.567.901.345
-                if 7 <= len(external_ip) <= 15 and external_ip.count(".") != 4:
+                if 7 <= len(external_ip) <= 15 and external_ip.count(".") != 3:
                     logger.error("IP from ipify.org does not look like an ipv4 address: %s", external_ip)
                     external_ip = None
                     continue
